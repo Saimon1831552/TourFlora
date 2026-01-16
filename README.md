@@ -33,3 +33,10 @@ TourFlora/
 ├── index.html      # Main Landing Page (Hero, Search, Packages, Blog)
 ├── tour.html        # Tour Packages Page (List view & Dynamic Detail view)
 └── README.md        # Project Documentation
+
+🔮 Future Improvements
+Convert to a React/Next.js application for better component reusability.
+
+Integrate a backend (Node.js/Express) for real booking submissions.
+
+Add an Admin Dashboard for managing tour packages.
