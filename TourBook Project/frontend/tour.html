@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourFlora - Premium Travel</title>
+    
+    <!-- Performance: Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CSS Frameworks -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel=\"stylesheet\" type=\"text/css\" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/64d8b1ba6d.js" crossorigin="anonymous" defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto Condensed', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                        },
+                        green: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Slow zoom animation for the background image */
+        @keyframes subtle-zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        
+        /* Timeline Line */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 48px;
+            bottom: -20px;
+            width: 2px;
+            background-color: #e5e7eb;
+            z-index: 0;
+        }
+        .group:last-child .timeline-line::before {
+            display: none;
+        }
+        
+        /* Custom Scrollbar for nicer feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #166534; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #14532d; 
+        }
+    </style>
+</head>
+<body class="bg-stone-50 font-sans antialiased text-gray-800 flex flex-col min-h-screen selection:bg-green-200 selection:text-green-900">
+
+    <!-- Navigation -->
+    <header id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-300 bg-green-900/95 backdrop-blur-md py-3 md:py-4 border-b border-white/10 shadow-xl">
+        <nav class="container mx-auto px-4 lg:px-12 flex flex-col md:flex-row justify-between items-center">
+            
+            <!-- Logo -->
+            <div class="flex flex-row items-center gap-3 mb-2 md:mb-0 cursor-pointer group" onclick="goHome()">
+                <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/10">
+                    <i data-lucide="palmtree" class="text-white h-6 w-6"></i>
+                </div>
+                <h3 class="font-bold text-2xl text-white tracking-wide font-serif">
+                    Tour<span class="text-green-400">Flora</span>
+                </h3>
+            </div>
+
+            <!-- Links -->
+            <ul class="flex flex-wrap justify-center items-center gap-2 md:gap-6 text-green-50 text-sm md:text-base font-medium">
+                <li><a href="./index.html" onclick="goHome()" class="px-3 py-2 rounded-full hover:bg-white/10 hover:text-white transition-all duration-300">Home</a></li>
+                <li><a href="#destinations" onclick="goHome()" class="px-3 py-2 rounded-full hover:bg-white/10 hover:text-white transition-all duration-300">Packages</a></li>
+                <button onclick="document.getElementById('booking_modal').showModal()" class="ml-2 bg-green-500 text-white px-5 py-2 rounded-full shadow-lg shadow-green-900/20 hover:bg-green-400 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-green-500/30 font-bold cursor-pointer border-none">
+                        Book Now</button>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- MAIN CONTENT VIEW (Wrapper for Home) -->
+    <div id="home-view" class="flex-1 w-full transition-opacity duration-500">
+        
+        <!-- Aesthetic Hero Section -->
+        <section id="philosophy" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden isolate">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 bg-black"></div>
+            
+            <!-- High-res background with gradient fade -->
+            <img src="https://images.unsplash.com/photo-1603951717808-36423a854d1d?q=80&w=2070&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover animate-[subtle-zoom_20s_infinite_alternate]" 
+                 alt="Beautiful Bangladesh Riverine Life">
+                 
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-green-950/90"></div>
+            
+            <!-- Content Container -->
+            <div class="container mx-auto px-4 lg:px-12 pt-20 relative z-10">
+                <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                    
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-green-200 text-xs tracking-[0.2em] uppercase font-bold mb-8 animate-[fadeIn_1s_ease-out]">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        Discover The Unseen
+                    </div>
+                    
+                    <!-- Main Title -->
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-medium text-white mb-8 leading-[1.1] tracking-tight drop-shadow-lg">
+                        Explore Bangladesh<br>
+                        <span class="italic text-green-300 font-light block mt-2">beyond the obvious</span>
+                    </h1>
+                    
+                    <!-- Separator -->
+                    <div class="h-px w-32 bg-gradient-to-r from-transparent via-green-400 to-transparent mb-10 opacity-70"></div>
+
+                    <!-- Narrative Text -->
+                    <div class="grid md:grid-cols-[1fr_auto_1fr] gap-8 items-center text-left md:text-center max-w-4xl mx-auto">
+                        <p class="text-lg md:text-xl text-green-50/90 font-light leading-relaxed">
+                            Every journey with <strong class="text-white font-serif">TourFlora</strong> is privately crafted, ethically grounded, and thoughtfully paced.
+                        </p>
+                        
+                        <div class="hidden md:block w-px h-16 bg-white/20"></div>
+                        
+                        <p class="text-base md:text-lg text-gray-300 font-light leading-relaxed">
+                            From ancient capitals to living craft traditions, we design for travellers who value <span class="text-green-300 font-medium border-b border-green-300/30 pb-0.5">depth over speed</span>.
+                        </p>
+                    </div>
+
+                    <!-- Feature Pills -->
+                    <div class="mt-16 flex flex-wrap justify-center gap-3">
+                        <div class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 text-green-100 text-sm font-medium tracking-wide transition-transform hover:scale-105 cursor-default">
+                            <i class="fa-solid fa-user-shield text-green-400"></i> No Strangers
+                        </div>
+                        <div class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 text-green-100 text-sm font-medium tracking-wide transition-transform hover:scale-105 cursor-default">
+                            <i class="fa-solid fa-bag-shopping text-green-400"></i> No Shopping Detours
+                        </div>
+                        <div class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 text-green-100 text-sm font-medium tracking-wide transition-transform hover:scale-105 cursor-default">
+                            <i class="fa-solid fa-leaf text-green-400"></i> Eco-Conscious
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/50 animate-bounce">
+                <i data-lucide="chevron-down" class="w-8 h-8"></i>
+            </div>
+        </section>
+
+        <!-- Modern Card Section -->
+        <section id="destinations" class="py-24 bg-stone-50">
+            <div class="container mx-auto px-4 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                    <div class="max-w-xl">
+                        <h4 class="text-green-800 font-bold uppercase tracking-widest text-sm mb-3">Our Collection</h4>
+                        <h2 class="text-4xl md:text-5xl font-serif font-medium text-green-950 mb-4 leading-tight">Curated Journeys</h2>
+                        <p class="text-gray-500 font-light text-lg">Handpicked experiences across the delta, designed for the mindful traveller.</p>
+                    </div>
+                </div>
+
+                <!-- Modern Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Card 1: Sundarbans -->
+                    <div onclick="openTourDetails('sundarbans')" class="cursor-pointer group relative flex flex-col bg-white rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 ease-out">
+                        <div class="relative h-[400px] overflow-hidden">
+                            <div class="absolute top-4 right-4 z-20">
+                                <span class="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-green-900 tracking-wide uppercase shadow-sm">4 Days</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1628063260338-3c35b801a2b0?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Sundarbans" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+                        </div>
+                        
+                        <div class="flex flex-col flex-1 p-8 -mt-12 relative z-10 mx-4 mb-4 bg-white rounded-[1.5rem] shadow-lg border border-gray-100 transition-transform duration-300 group-hover:-translate-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-green-600 uppercase tracking-widest mb-3">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i> Khulna
+                            </div>
+                            <h3 class="text-2xl font-serif text-gray-900 mb-3 leading-tight group-hover:text-green-800 transition-colors">Silence of the Mangroves</h3>
+                            <p class="text-gray-500 font-light text-sm mb-6 line-clamp-2">Cruise deep into the world's largest mangrove forest, tracking tigers.</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+                                <span class="text-xl font-serif text-green-950">$450</span>
+                                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-green-900 group-hover:text-white group-hover:border-green-900 transition-all duration-300">
+                                    <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Sylhet -->
+                    <div onclick="openTourDetails('sylhet')" class="cursor-pointer group relative flex flex-col bg-white rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 ease-out">
+                        <div class="relative h-[400px] overflow-hidden">
+                            <div class="absolute top-4 right-4 z-20">
+                                <span class="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-green-900 tracking-wide uppercase shadow-sm">3 Days</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1598367772323-3a4b71891a32?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Sylhet Tea Gardens" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+                        </div>
+                        
+                        <div class="flex flex-col flex-1 p-8 -mt-12 relative z-10 mx-4 mb-4 bg-white rounded-[1.5rem] shadow-lg border border-gray-100 transition-transform duration-300 group-hover:-translate-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-green-600 uppercase tracking-widest mb-3">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i> Sylhet
+                            </div>
+                            <h3 class="text-2xl font-serif text-gray-900 mb-3 leading-tight group-hover:text-green-800 transition-colors">Emerald Tea Trails</h3>
+                            <p class="text-gray-500 font-light text-sm mb-6 line-clamp-2">Walk through rolling tea estates and discover crystal clear waters.</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+                                <span class="text-xl font-serif text-green-950">$320</span>
+                                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-green-900 group-hover:text-white group-hover:border-green-900 transition-all duration-300">
+                                    <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Old Dhaka -->
+                    <div onclick="openTourDetails('dhaka')" class="cursor-pointer group relative flex flex-col bg-white rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 ease-out">
+                        <div class="relative h-[400px] overflow-hidden">
+                            <div class="absolute top-4 right-4 z-20">
+                                <span class="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-green-900 tracking-wide uppercase shadow-sm">1 Day</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1681282903714-3580467c61f2?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Lalbagh Fort" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+                        </div>
+                        
+                        <div class="flex flex-col flex-1 p-8 -mt-12 relative z-10 mx-4 mb-4 bg-white rounded-[1.5rem] shadow-lg border border-gray-100 transition-transform duration-300 group-hover:-translate-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-green-600 uppercase tracking-widest mb-3">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i> Dhaka
+                            </div>
+                            <h3 class="text-2xl font-serif text-gray-900 mb-3 leading-tight group-hover:text-green-800 transition-colors">Lost Capitals</h3>
+                            <p class="text-gray-500 font-light text-sm mb-6 line-clamp-2">Heritage walk through Mughal ruins and ancient Sonargaon.</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+                                <span class="text-xl font-serif text-green-950">$120</span>
+                                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-green-900 group-hover:text-white group-hover:border-green-900 transition-all duration-300">
+                                    <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Chittagong -->
+                    <div onclick="openTourDetails('chittagong')" class="cursor-pointer group relative flex flex-col bg-white rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 ease-out">
+                        <div class="relative h-[400px] overflow-hidden">
+                            <div class="absolute top-4 right-4 z-20">
+                                <span class="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-green-900 tracking-wide uppercase shadow-sm">5 Days</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1622306260824-3860afac7453?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Bandarban" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+                        </div>
+                        
+                        <div class="flex flex-col flex-1 p-8 -mt-12 relative z-10 mx-4 mb-4 bg-white rounded-[1.5rem] shadow-lg border border-gray-100 transition-transform duration-300 group-hover:-translate-y-2">
+                            <div class="flex items-center gap-2 text-xs font-bold text-green-600 uppercase tracking-widest mb-3">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i> Chittagong
+                            </div>
+                            <h3 class="text-2xl font-serif text-gray-900 mb-3 leading-tight group-hover:text-green-800 transition-colors">Peaks & Tribes</h3>
+                            <p class="text-gray-500 font-light text-sm mb-6 line-clamp-2">Trek through clouds in Bandarban and meet indigenous communities.</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+                                <span class="text-xl font-serif text-green-950">$550</span>
+                                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-green-900 group-hover:text-white group-hover:border-green-900 transition-all duration-300">
+                                    <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- DETAILS VIEW (Dynamic Template) -->
+    <div id="details-view" class="hidden flex-1 w-full bg-stone-50 pb-20 animate-[fadeIn_0.5s_ease-out] pt-24">
+        
+        <div class="w-full max-w-7xl mx-auto px-4 lg:px-8">
+            
+            <!-- Breadcrumbs / Back -->
+            <button onclick="goHome()" class="flex items-center gap-2 text-green-800 hover:text-green-600 font-semibold mb-6 transition-colors group">
+                <i data-lucide="arrow-left" class="w-5 h-5 transition-transform group-hover:-translate-x-1"></i> Back to Packages
+            </button>
+
+            <!-- Dynamic Image Grid -->
+            <div class="h-auto md:h-[500px] grid grid-cols-1 md:grid-flow-col md:grid-rows-2 gap-4 mb-10">
+                <!-- Main Image -->
+                <img id="detail-gallery-main" src="" 
+                     class="h-64 md:h-full md:row-span-2 md:col-span-2 w-full object-cover rounded-3xl shadow-lg cursor-pointer">
+                <!-- Side Images (Top) -->
+                <img id="detail-gallery-sub1" src="" 
+                     class="hidden md:block h-full md:row-span-1 md:col-span-1 w-full object-cover rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition">
+                <!-- Side Image (Bottom) -->
+                <img id="detail-gallery-sub2" src="" 
+                     class="hidden md:block h-full md:row-span-1 md:col-span-1 w-full object-cover rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition">
+            </div>
+
+            <!-- Content Split -->
+            <div class="flex flex-col lg:flex-row gap-12 relative">
+                
+                <!-- LEFT COLUMN: Content -->
+                <div class="flex-1">
+                    
+                    <!-- Header -->
+                    <div class="border-b border-green-200 pb-6 mb-8">
+                        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                            <div>
+                                <h4 class="text-green-600 font-bold uppercase tracking-widest text-sm mb-2" id="detail-location">Location</h4>
+                                <h1 class="text-4xl md:text-5xl font-serif font-bold text-green-950 leading-tight" id="detail-title">Title Here</h1>
+                            </div>
+                            <span id="detail-badge-duration" class="px-4 py-2 border-2 border-yellow-500 text-yellow-700 text-sm font-bold rounded-xl bg-yellow-50">
+                                X Days
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" id="detail-quick-info">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <!-- Navigation Anchors -->
+                    <div class="sticky top-20 z-40 bg-stone-50/95 backdrop-blur-sm py-4 border-b border-gray-200 mb-8 flex gap-6 overflow-x-auto hide-scrollbar">
+                        <a href="#overview" class="text-green-800 font-bold hover:text-green-600 whitespace-nowrap">Overview</a>
+                        <a href="#highlights" class="text-gray-500 font-medium hover:text-green-600 whitespace-nowrap">Highlights</a>
+                        <a href="#itinerary" class="text-gray-500 font-medium hover:text-green-600 whitespace-nowrap">Itinerary</a>
+                        <a href="#accommodation" class="text-gray-500 font-medium hover:text-green-600 whitespace-nowrap">Accommodation</a>
+                    </div>
+
+                    <!-- SECTIONS -->
+                    <div id="overview" class="scroll-mt-32 mb-12">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-book-open text-green-600 text-xl"></i> Overview
+                        </h3>
+                        <p id="detail-desc" class="text-lg text-gray-600 leading-relaxed font-light text-justify"></p>
+                    </div>
+
+                    <div id="highlights" class="scroll-mt-32 mb-12">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-star text-green-600 text-xl"></i> Highlights
+                        </h3>
+                        <ul id="detail-highlights-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+
+                    <div id="itinerary" class="scroll-mt-32 mb-12">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-8 flex items-center gap-3">
+                            <i class="fa-solid fa-map-location-dot text-green-600 text-xl"></i> Day-by-Day Itinerary
+                        </h3>
+                        <div id="detail-itinerary-list" class="space-y-0">
+                            <!-- JS Populated -->
+                        </div>
+                    </div>
+                    
+                    <div id="accommodation" class="scroll-mt-32 mb-12 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-bed text-green-600 text-xl"></i> Your Stay
+                        </h3>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <img id="detail-stay-img" src="" class="w-full md:w-48 h-48 object-cover rounded-xl shrink-0">
+                            <div>
+                                <h4 id="detail-stay-name" class="text-xl font-bold text-green-900 mb-1">Hotel Name</h4>
+                                <span id="detail-stay-type" class="text-xs font-bold text-white bg-green-600 px-2 py-1 rounded mb-3 inline-block">Type</span>
+                                <p id="detail-stay-desc" class="text-gray-600 text-sm mb-4 leading-relaxed"></p>
+                                <div id="detail-stay-amenities" class="flex flex-wrap gap-2">
+                                    <!-- JS populated -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Sticky Booking Card -->
+                <div class="w-full lg:w-96 shrink-0">
+                    <div class="sticky top-24">
+                        <div class="bg-white p-6 rounded-2xl shadow-xl border border-green-100 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-green-600"></div>
+                            
+                            <div class="flex justify-between items-end mb-6 pb-6 border-b border-gray-100">
+                                <div>
+                                    <p class="text-gray-500 text-sm font-medium">Starting from</p>
+                                    <p id="detail-cost" class="text-4xl font-serif font-bold text-green-900">$0</p>
+                                </div>
+                                <span class="bg-green-50 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Per Person</span>
+                            </div>
+
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-sm text-gray-600"><span class="font-bold text-gray-800">Private Tour:</span> No strangers, just your group.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-sm text-gray-600"><span class="font-bold text-gray-800">All Inclusive:</span> Hotels, transport, guide & entry fees.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-sm text-gray-600"><span class="font-bold text-gray-800">Flexible:</span> Customize the pace to your liking.</p>
+                                </div>
+                            </div>
+
+                            <button onclick="document.getElementById('booking_modal').showModal()" class="w-full bg-green-800 hover:bg-green-900 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-green-900/20 transform hover:-translate-y-1">
+                                Request Booking
+                            </button>
+                            
+                            <p class="text-xs text-center text-gray-400 mt-4">No payment required today. Free inquiry.</p>
+                        </div>
+                        
+                        <div class="mt-6 bg-green-100/50 p-4 rounded-xl border border-green-200">
+                            <div class="flex gap-3 items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-200 flex items-center justify-center text-green-700">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-green-800 uppercase">Need Help?</p>
+                                    <p class="text-sm text-green-900 font-medium">+880 1711 000000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="bg-green-950 text-gray-400 py-16 border-t border-green-900 font-sans text-sm mt-auto z-50 relative">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12">
+            
+            <!-- Brand -->
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                     <i data-lucide="palmtree" class="text-green-400 h-6 w-6"></i>
+                    <span class="text-2xl font-bold text-white font-serif">TourFlora</span>
+                </div>
+                <p class="mb-6 leading-relaxed">Making the world accessible, one beautiful destination at a time. We curate the best eco-friendly travel experiences.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-700 transition-colors text-white"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-700 transition-colors text-white"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-700 transition-colors text-white"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-wider mb-6">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-green-400 transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Careers</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Blog</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Press</a></li>
+                </ul>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-wider mb-6">Support</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Contact Center</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Safety Information</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Cancellation Policy</a></li>
+                    <li><a href="#" class="hover:text-green-400 transition-colors">Report Issue</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-wider mb-6">Newsletter</h4>
+                <p class="mb-4">Subscribe for latest updates and exclusive offers.</p>
+                <div class="flex flex-col gap-3">
+                    <input type="email" placeholder="Enter your email" class="bg-green-900 border border-green-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-green-500 w-full">
+                    <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-4 rounded-lg transition-colors">Subscribe</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="container mx-auto px-4 mt-12 pt-8 border-t border-green-900 text-center">
+            &copy; 2024 TourFlora. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <!-- Improved Booking Modal -->
+<dialog id="booking_modal" class="modal z-[60]">
+    <div class="modal-box bg-white text-gray-800 max-w-2xl p-0 overflow-hidden rounded-2xl shadow-2xl">
+        
+        <!-- Header with Gradient -->
+        <div class="bg-gradient-to-r from-green-800 to-green-600 p-6 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
+            
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <i data-lucide="calendar-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl font-serif">Request Your Journey</h3>
+                        <p class="text-green-100 text-sm">We'll craft the perfect itinerary for you</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Content -->
+        <div class="p-6 md:p-8">
+            
+            <!-- Tour Info Display (Dynamic) -->
+            <div id="selected-tour-info" class="mb-6 p-4 bg-green-50 rounded-xl border border-green-200 hidden">
+                <div class="flex items-start gap-4">
+                    <img id="modal-tour-image" src="" class="w-20 h-20 rounded-lg object-cover" alt="Tour">
+                    <div class="flex-1">
+                        <h4 id="modal-tour-title" class="font-bold text-green-900 text-lg mb-1">Tour Title</h4>
+                        <div class="flex gap-4 text-sm text-green-700">
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i>
+                                <span id="modal-tour-duration">Duration</span>
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="dollar-sign" class="w-3 h-3"></i>
+                                <span id="modal-tour-price">Price</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="booking-form" class="space-y-5">
+                
+                <!-- Personal Information -->
+                <div class="space-y-4">
+                    <h5 class="text-sm font-bold text-gray-700 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4 text-green-600"></i>
+                        Personal Information
+                    </h5>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="booking-name" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                                Full Name <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="booking-name" 
+                                placeholder="John Doe" 
+                                required
+                                class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400" 
+                            />
+                            <p class="text-xs text-gray-400 mt-1 hidden" id="name-error"></p>
+                        </div>
+                        
+                        <div>
+                            <label for="booking-email" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                                Email Address <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="booking-email" 
+                                placeholder="john@example.com" 
+                                required
+                                class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400" 
+                            />
+                            <p class="text-xs text-gray-400 mt-1 hidden" id="email-error"></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="booking-phone" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                                Phone Number
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="booking-phone" 
+                                placeholder="+880 1711-000000" 
+                                class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400" 
+                            />
+                        </div>
+
+                        <div>
+                            <label for="booking-country" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                                Country
+                            </label>
+                            <select 
+                                id="booking-country"
+                                class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800"
+                            >
+                                <option value="">Select your country</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="India">India</option>
+                                <option value="USA">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trip Details -->
+                <div class="space-y-4 pt-4 border-t border-gray-200">
+                    <h5 class="text-sm font-bold text-gray-700 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-green-600"></i>
+                        Trip Details
+                    </h5>
+
+                    <div>
+                        <label for="booking-destination" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                            Destination Interest <span class="text-red-500">*</span>
+                        </label>
+                        <select 
+                            id="booking-destination" 
+                            required
+                            class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800"
+                        >
+                            <option value="" disabled selected>Select a destination</option>
+                            <option value="Sundarbans">Sundarbans - Mangrove Forest</option>
+                            <option value="Sylhet">Sylhet - Tea Gardens</option>
+                            <option value="Chittagong">Chittagong Hill Tracts</option>
+                            <option value="Dhaka">Old Dhaka Heritage</option>
+                            <option value="Custom">Custom Itinerary</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="booking-date" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                                Preferred Travel Date
+                            </label>
+                            <input 
+                                type="date" 
+                                id="booking-date" 
+                                min=""
+                                class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-700" 
+                            />
+                            <p class="text-xs text-gray-400 mt-1">We'll find the best dates for you</p>
+                        </div>
+
+                        <div>
+                            <label for="booking-guests" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                                Number of Travelers <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="number" 
+                                    id="booking-guests" 
+                                    min="1" 
+                                    max="20"
+                                    value="2"
+                                    required
+                                    class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800" 
+                                />
+                                <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-1">
+                                    <button type="button" onclick="adjustGuests(1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 hover:bg-green-500 hover:text-white rounded text-xs transition-colors">
+                                        <i data-lucide="plus" class="w-3 h-3"></i>
+                                    </button>
+                                    <button type="button" onclick="adjustGuests(-1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 hover:bg-green-500 hover:text-white rounded text-xs transition-colors">
+                                        <i data-lucide="minus" class="w-3 h-3"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="booking-duration" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                            Trip Duration Preference
+                        </label>
+                        <select 
+                            id="booking-duration"
+                            class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800"
+                        >
+                            <option value="">Flexible</option>
+                            <option value="1-2 days">1-2 Days</option>
+                            <option value="3-5 days">3-5 Days</option>
+                            <option value="6-10 days">6-10 Days</option>
+                            <option value="10+ days">10+ Days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Special Requirements -->
+                <div class="space-y-4 pt-4 border-t border-gray-200">
+                    <h5 class="text-sm font-bold text-gray-700 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="message-square" class="w-4 h-4 text-green-600"></i>
+                        Additional Information
+                    </h5>
+
+                    <div>
+                        <label for="booking-message" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                            Special Requests / Questions
+                        </label>
+                        <textarea 
+                            id="booking-message" 
+                            rows="4"
+                            placeholder="Dietary restrictions, accessibility needs, special occasions, activity preferences, or any questions you have..."
+                            class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400 resize-none"
+                        ></textarea>
+                        <p class="text-xs text-gray-400 mt-1">Help us personalize your experience</p>
+                    </div>
+
+                    <!-- Budget Range -->
+                    <div>
+                        <label for="booking-budget" class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                            Budget Range (Optional)
+                        </label>
+                        <select 
+                            id="booking-budget"
+                            class="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-green-500 focus:outline-none transition-all bg-gray-50 focus:bg-white text-gray-800"
+                        >
+                            <option value="">Prefer not to say</option>
+                            <option value="budget">Budget ($100-300)</option>
+                            <option value="standard">Standard ($300-600)</option>
+                            <option value="premium">Premium ($600-1000)</option>
+                            <option value="luxury">Luxury ($1000+)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Privacy Notice -->
+                <div class="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-blue-600 mt-0.5"></i>
+                    <div class="text-xs text-blue-800">
+                        <p class="font-bold mb-1">Your Privacy Matters</p>
+                        <p>We'll only use your information to create your custom itinerary. No payment required at this stage.</p>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Error/Success Messages -->
+            <div id="booking-error" class="hidden mt-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-red-500 mt-0.5"></i>
+                    <div>
+                        <p class="font-bold text-red-800 text-sm">Oops! Something went wrong</p>
+                        <p id="booking-error-text" class="text-red-700 text-xs mt-1"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="booking-success" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mt-0.5"></i>
+                    <div>
+                        <p class="font-bold text-green-800 text-sm">Inquiry Sent Successfully!</p>
+                        <p class="text-green-700 text-xs mt-1">We'll contact you within 24 hours with a personalized itinerary.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col-reverse md:flex-row gap-3 mt-8 pt-6 border-t border-gray-200">
+                <button 
+                    type="button" 
+                    onclick="closeBookingModal()" 
+                    class="flex-1 py-3 px-6 rounded-lg bg-gray-100 text-gray-700 font-bold hover:bg-gray-200 transition-all text-center"
+                >
+                    Cancel
+                </button>
+                <button 
+                    type="button" 
+                    onclick="submitImprovedBooking()" 
+                    id="submit-booking-btn"
+                    class="flex-1 py-3 px-6 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition-all shadow-lg shadow-green-900/20 hover:shadow-green-900/30 flex items-center justify-center gap-2 group"
+                >
+                    <i data-lucide="send" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                    <span>Send Inquiry</span>
+                </button>
+            </div>
+
+            <p class="text-center text-xs text-gray-400 mt-4">
+                🌿 Free inquiry • No payment required • Response within 24 hours
+            </p>
+        </div>
+    </div>
+    
+    <form method="dialog" class="modal-backdrop bg-black/60 backdrop-blur-sm">
+        <button>close</button>
+    </form>
+</dialog>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Tour Data Database with Extended Data for New UI
+        let tourData = { }; // Changed to let so it can be updated
+
+        // Fetch data from PHP backend
+        document.addEventListener('DOMContentLoaded', () => {
+           fetch('api_tours.php')
+               .then(response => response.json())
+               .then(data => {
+                   tourData = data;
+                   // If the URL has a tour query param, load it now
+                   const urlParams = new URLSearchParams(window.location.search);
+                   const tourId = urlParams.get('id'); // e.g., ?id=sundarbans
+                   if(tourId) openTourDetails(tourId);
+               })
+               .catch(error => console.error('Error loading tours:', error));
+        });
+
+        function openTourDetails(tourId) {
+            const tour = tourData[tourId];
+            if (!tour) return;
+
+            // 1. Populate Images (Grid)
+            const imgMain = document.getElementById('detail-gallery-main');
+            const imgSub1 = document.getElementById('detail-gallery-sub1');
+            const imgSub2 = document.getElementById('detail-gallery-sub2');
+            
+            if(tour.images && tour.images.length > 0) {
+                imgMain.src = tour.images[0];
+                imgSub1.src = tour.images[1] || tour.images[0];
+                imgSub2.src = tour.images[2] || tour.images[0];
+            } else {
+                 imgMain.src = tour.image; // Fallback
+            }
+
+            // 2. Populate Header
+            document.getElementById('detail-title').innerText = tour.title;
+            document.getElementById('detail-location').innerText = tour.location;
+            document.getElementById('detail-badge-duration').innerText = tour.duration;
+            document.getElementById('detail-cost').innerText = tour.price;
+            document.getElementById('detail-desc').innerText = tour.desc;
+
+            // 3. Populate Quick Stats
+            const statsContainer = document.getElementById('detail-quick-info');
+            statsContainer.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-700"><i class="fa-solid fa-person-hiking"></i></div>
+                    <div><p class="text-xs text-gray-500 font-bold uppercase">Type</p><p class="text-sm font-bold text-gray-800">${tour.stats.type}</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-700"><i class="fa-solid fa-calendar-day"></i></div>
+                    <div><p class="text-xs text-gray-500 font-bold uppercase">Best Time</p><p class="text-sm font-bold text-gray-800">${tour.stats.season}</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-700"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <div><p class="text-xs text-gray-500 font-bold uppercase">Fitness</p><p class="text-sm font-bold text-gray-800">${tour.stats.fitness}</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-700"><i class="fa-solid fa-user-group"></i></div>
+                    <div><p class="text-xs text-gray-500 font-bold uppercase">Group</p><p class="text-sm font-bold text-gray-800">${tour.stats.group}</p></div>
+                </div>
+            `;
+
+            // 4. Populate Highlights
+            const highlightsList = document.getElementById('detail-highlights-list');
+            highlightsList.innerHTML = '';
+            tour.highlights.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex items-center gap-3 text-gray-700 p-2';
+                li.innerHTML = `
+                    <i class="fa-solid fa-check text-green-500"></i>
+                    <span class="text-sm md:text-base font-medium">${item}</span>
+                `;
+                highlightsList.appendChild(li);
+            });
+
+            // 5. Populate Itinerary (Timeline)
+            const itineraryContainer = document.getElementById('detail-itinerary-list');
+            itineraryContainer.innerHTML = '';
+            tour.itinerary.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex gap-6 group timeline-line relative pb-10 last:pb-0';
+                div.innerHTML = `
+                    <div class="flex-shrink-0 w-14 pt-0 relative z-10 flex flex-col items-center">
+                         <div class="w-14 h-14 rounded-full bg-green-900 text-white flex items-center justify-center font-bold text-sm shadow-lg border-4 border-stone-50 leading-tight text-center">
+                             ${item.day.replace(' ', '<br>')}
+                         </div>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-green-950 mb-2 font-serif">${item.title}</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">${item.desc}</p>
+                    </div>
+                `;
+                itineraryContainer.appendChild(div);
+            });
+
+            // 6. Populate Accommodation
+            const acc = tour.accommodation;
+            document.getElementById('detail-stay-img').src = acc.image;
+            document.getElementById('detail-stay-name').innerText = acc.name;
+            document.getElementById('detail-stay-type').innerText = acc.type;
+            document.getElementById('detail-stay-desc').innerText = acc.desc;
+            
+            const amenitiesContainer = document.getElementById('detail-stay-amenities');
+            amenitiesContainer.innerHTML = '';
+            acc.amenities.forEach(am => {
+                const span = document.createElement('span');
+                span.className = 'bg-stone-100 text-gray-600 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded border border-gray-200';
+                span.innerText = am;
+                amenitiesContainer.appendChild(span);
+            });
+
+            // Switch Views
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('details-view').classList.remove('hidden');
+            
+            // Scroll to top of details view
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Re-init Icons
+            lucide.createIcons();
+        }
+
+        function goHome() {
+            document.getElementById('details-view').classList.add('hidden');
+            document.getElementById('home-view').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- NEW: Booking Logic ---
+        // ===================================
+// IMPROVED BOOKING FORM FUNCTIONS
+// ===================================
+
+// Set minimum date to today
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('booking-date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    }
+});
+
+// Open booking modal with tour info
+function openBookingModalWithTour(tourSlug) {
+    const tour = tourData[tourSlug];
+    if (tour) {
+        // Show tour info in modal
+        const tourInfo = document.getElementById('selected-tour-info');
+        const tourImage = document.getElementById('modal-tour-image');
+        const tourTitle = document.getElementById('modal-tour-title');
+        const tourDuration = document.getElementById('modal-tour-duration');
+        const tourPrice = document.getElementById('modal-tour-price');
+
+        tourImage.src = tour.images && tour.images.length > 0 ? tour.images[0] : tour.image;
+        tourTitle.textContent = tour.title;
+        tourDuration.textContent = tour.duration;
+        tourPrice.textContent = tour.price;
+
+        tourInfo.classList.remove('hidden');
+
+        // Pre-select destination
+        const destSelect = document.getElementById('booking-destination');
+        const tourLocation = tour.location || tour.title;
+        
+        // Try to match destination
+        for (let option of destSelect.options) {
+            if (option.value.toLowerCase().includes(tourLocation.toLowerCase()) || 
+                tourLocation.toLowerCase().includes(option.value.toLowerCase())) {
+                destSelect.value = option.value;
+                break;
+            }
+        }
+    }
+
+    document.getElementById('booking_modal').showModal();
+    lucide.createIcons();
+}
+
+// Close modal and reset form
+function closeBookingModal() {
+    document.getElementById('booking_modal').close();
+    resetBookingForm();
+}
+
+// Adjust guest count
+function adjustGuests(change) {
+    const input = document.getElementById('booking-guests');
+    let current = parseInt(input.value) || 2;
+    let newValue = current + change;
+    
+    // Keep within bounds
+    if (newValue < 1) newValue = 1;
+    if (newValue > 20) newValue = 20;
+    
+    input.value = newValue;
+}
+
+// Form validation
+function validateBookingForm() {
+    let isValid = true;
+    const errors = {};
+
+    // Name validation
+    const name = document.getElementById('booking-name').value.trim();
+    if (!name || name.length < 2) {
+        errors.name = 'Please enter your full name';
+        isValid = false;
+    }
+
+    // Email validation
+    const email = document.getElementById('booking-email').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+        errors.email = 'Please enter a valid email address';
+        isValid = false;
+    }
+
+    // Destination validation
+    const destination = document.getElementById('booking-destination').value;
+    if (!destination) {
+        errors.destination = 'Please select a destination';
+        isValid = false;
+    }
+
+    // Guests validation
+    const guests = parseInt(document.getElementById('booking-guests').value);
+    if (!guests || guests < 1) {
+        errors.guests = 'Please specify number of travelers';
+        isValid = false;
+    }
+
+    // Display errors
+    if (!isValid) {
+        showBookingError(Object.values(errors).join('. '));
+    }
+
+    return isValid;
+}
+
+// Submit improved booking
+function submitImprovedBooking() {
+    // Hide previous messages
+    document.getElementById('booking-error').classList.add('hidden');
+    document.getElementById('booking-success').classList.add('hidden');
+
+    // Validate form
+    if (!validateBookingForm()) {
+        return;
+    }
+
+    // Gather form data
+    const formData = {
+        name: document.getElementById('booking-name').value.trim(),
+        email: document.getElementById('booking-email').value.trim(),
+        phone: document.getElementById('booking-phone').value.trim(),
+        country: document.getElementById('booking-country').value,
+        destination: document.getElementById('booking-destination').value,
+        date: document.getElementById('booking-date').value,
+        guests: parseInt(document.getElementById('booking-guests').value),
+        duration: document.getElementById('booking-duration').value,
+        message: document.getElementById('booking-message').value.trim(),
+        budget: document.getElementById('booking-budget').value
+    };
+
+    // Build detailed message
+    let detailedMessage = formData.message || '';
+    if (formData.phone) detailedMessage += `\nPhone: ${formData.phone}`;
+    if (formData.country) detailedMessage += `\nCountry: ${formData.country}`;
+    if (formData.duration) detailedMessage += `\nDuration: ${formData.duration}`;
+    if (formData.budget) detailedMessage += `\nBudget: ${formData.budget}`;
+
+    // Prepare API payload
+    const apiData = {
+        name: formData.name,
+        email: formData.email,
+        destination: formData.destination,
+        date: formData.date || null,
+        guests: formData.guests,
+        message: detailedMessage || 'Booking inquiry from tour page'
+    };
+
+    // Show loading state
+    const submitBtn = document.getElementById('submit-booking-btn');
+    const originalContent = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Sending...</span>
+    `;
+
+    // Submit to API
+    fetch('api_booking_submit.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(apiData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showBookingSuccess();
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                closeBookingModal();
+            }, 3000);
+        } else {
+            showBookingError(data.message || 'Failed to submit inquiry. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Booking error:', error);
+        showBookingError('Network error. Please check your connection and try again.');
+    })
+    .finally(() => {
+        // Restore button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalContent;
+        lucide.createIcons();
+    });
+}
+
+function showBookingError(message) {
+    const errorDiv = document.getElementById('booking-error');
+    const errorText = document.getElementById('booking-error-text');
+    
+    errorText.textContent = message;
+    errorDiv.classList.remove('hidden');
+    
+    // Scroll to error
+    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    lucide.createIcons();
+}
+
+function showBookingSuccess() {
+    const successDiv = document.getElementById('booking-success');
+    successDiv.classList.remove('hidden');
+    
+    // Scroll to success
+    successDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    lucide.createIcons();
+}
+
+function resetBookingForm() {
+    document.getElementById('booking-form').reset();
+    document.getElementById('booking-guests').value = 2;
+    document.getElementById('selected-tour-info').classList.add('hidden');
+    document.getElementById('booking-error').classList.add('hidden');
+    document.getElementById('booking-success').classList.add('hidden');
+}
+
+// Update existing modal open button
+// Replace onclick="document.getElementById('booking_modal').showModal()" with:
+// onclick="openBookingModalWithTour(currentTourSlug)"
+    </script>
+</body>
+</html>

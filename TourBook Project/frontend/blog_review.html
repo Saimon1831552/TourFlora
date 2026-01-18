@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Chronicles & Reviews - TourFlora</title>
+    
+    <!-- Performance: Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- CSS Frameworks -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/64d8b1ba6d.js" crossorigin="anonymous" defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto Condensed', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                        },
+                        green: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Animation Utilities */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrolled Navbar State */
+        .scrolled-nav {
+            background-color: rgba(20, 83, 45, 0.95) !important;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #14532d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #166534; }
+    </style>
+</head>
+<body class="bg-stone-50 font-sans antialiased text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent py-4 border-b border-white/10">
+        <nav class="container mx-auto px-4 lg:px-12 flex flex-col md:flex-row justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="index.html" class="flex flex-row items-center gap-3 mb-2 md:mb-0 cursor-pointer group">
+                <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/10">
+                    <i data-lucide="palmtree" class="text-white h-6 w-6"></i>
+                </div>
+                <h3 class="font-bold text-2xl text-white tracking-wide font-serif">
+                    Tour<span class="text-green-400">Flora</span>
+                </h3>
+            </a>
+
+            <!-- Links -->
+            <ul class="flex flex-wrap justify-center items-center gap-1 md:gap-6 text-green-50 text-base font-medium">
+                <li><a href="index.html" class="px-3 py-2 rounded-full hover:bg-white/10 hover:text-white transition-all duration-300">Home</a></li>
+                <li><a href="tour.html" class="px-3 py-2 rounded-full hover:bg-white/10 hover:text-white transition-all duration-300">Packages</a></li>
+                <li><a href="#" class="px-3 py-2 rounded-full bg-white/10 text-white border border-white/20 transition-all duration-300">Community</a></li>
+                <button onclick="document.getElementById('write_modal').showModal()" class="ml-2 bg-green-500 text-white px-6 py-2.5 rounded-full shadow-lg shadow-green-900/20 hover:bg-green-400 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-green-500/30 font-bold cursor-pointer border-none flex items-center gap-2">
+                    <i data-lucide="pen-tool" class="w-4 h-4"></i> Write Story
+                </button>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Header -->
+    <div class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?q=80&w=2070&auto=format&fit=crop" 
+                 class="w-full h-full object-cover" alt="Travel Journal Background">
+            <div class="absolute inset-0 bg-gradient-to-b from-green-950/80 via-green-900/60 to-stone-50"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-green-300 text-sm font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-md fade-in-up">
+                Community Voices
+            </span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg fade-in-up delay-100">
+                Chronicles of the <span class="text-green-400 italic font-light">Wild</span>
+            </h1>
+            <p class="text-xl text-green-100 font-light max-w-2xl mx-auto leading-relaxed fade-in-up delay-200">
+                Real stories, honest reviews, and untamed adventures from our community of travelers.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content Layout -->
+    <div class="container mx-auto px-4 lg:px-8 -mt-20 relative z-20 pb-24">
+        
+        <!-- Tab Navigation -->
+        <div class="flex justify-center mb-12 fade-in-up delay-300">
+            <div class="bg-white p-2 rounded-full shadow-xl flex gap-2 border border-gray-100">
+                <button onclick="switchTab('blogs')" id="tab-blogs" class="px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all bg-green-900 text-white shadow-md">
+                    Travel Diaries
+                </button>
+                <button onclick="switchTab('reviews')" id="tab-reviews" class="px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all text-gray-500 hover:bg-gray-100">
+                    Tour Reviews
+                </button>
+            </div>
+        </div>
+
+        <!-- SECTION: TRAVEL DIARIES (BLOGS) -->
+        <div id="section-blogs" class="space-y-16 transition-opacity duration-300">
+            
+            <!-- Featured Story (Large Card) - Static for aesthetics, or could be made dynamic -->
+            <article class="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 grid md:grid-cols-2 group">
+                <div class="relative h-[400px] md:h-auto overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1527&auto=format&fit=crop" 
+                         alt="Featured Story" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute top-6 left-6">
+                        <span class="bg-white/95 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold text-green-900 tracking-wide uppercase shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-500 mr-1"></i> Editor's Pick
+                        </span>
+                    </div>
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                        <span class="text-green-600">Adventure</span>
+                        <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                        <span>12 Min Read</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-green-950 mb-4 leading-tight group-hover:text-green-700 transition-colors">
+                        Lost in the Mist: A Week in the Chittagong Hill Tracts
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed line-clamp-3">
+                        We left the city behind and ascended into the clouds. The air grew thinner, the noise faded, and we found ourselves in a world where time seems to stand still...
+                    </p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/150?img=60" alt="Author" class="w-10 h-10 rounded-full border-2 border-green-100">
+                            <div>
+                                <p class="text-sm font-bold text-gray-900">Arif Ahmed</p>
+                                <p class="text-xs text-gray-500">Oct 24, 2024</p>
+                            </div>
+                        </div>
+                        <a href="#" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-green-900 hover:text-white hover:border-green-900 transition-all">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blog Grid (Dynamic) -->
+            <div id="blog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Content injected via JS -->
+                <div class="col-span-full text-center py-10 text-gray-400">Loading stories...</div>
+            </div>
+        </div>
+
+
+        <!-- SECTION: REVIEWS (Detailed) -->
+        <div id="section-reviews" class="hidden space-y-12">
+            
+            <!-- Summary Stats -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-lg grid md:grid-cols-3 gap-8 items-center">
+                <div class="text-center md:border-r border-gray-100">
+                    <h2 class="text-6xl font-serif font-bold text-green-900">4.9</h2>
+                    <div class="flex justify-center gap-1 text-yellow-400 text-lg my-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="text-gray-500 text-sm font-medium">Based on recent data</p>
+                </div>
+                <!-- Progress Bars (Visual only) -->
+                <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-gray-600 uppercase mb-1">
+                            <span>Service & Guide</span>
+                            <span>98%</span>
+                        </div>
+                        <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 w-[98%]"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-gray-600 uppercase mb-1">
+                            <span>Accommodation</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 w-[92%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review List (Populated via JS) -->
+            <div class="grid gap-6" id="reviews-container">
+                 <p class="text-center text-gray-400 py-10">Loading reviews...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="bg-green-950 text-gray-400 py-16 border-t border-green-900 font-sans text-sm">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                     <i data-lucide="palmtree" class="text-green-400 h-6 w-6"></i>
+                    <span class="text-2xl font-bold text-white font-serif">TourFlora</span>
+                </div>
+                <p class="mb-6 leading-relaxed">Making the world accessible, one beautiful destination at a time.</p>
+            </div>
+            <!-- ... footer links ... -->
+            <div>
+                 <h4 class="text-white font-bold uppercase tracking-wider mb-6">Support</h4>
+                 <ul class="space-y-3">
+                     <li><a href="#" class="hover:text-green-400">Help Center</a></li>
+                     <li><a href="#" class="hover:text-green-400">Contact Us</a></li>
+                 </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-12 pt-8 border-t border-green-900 text-center">
+            &copy; 2024 TourFlora. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Write/Review Modal -->
+    <dialog id="write_modal" class="modal z-[60]">
+        <div class="modal-box bg-white text-gray-800 max-w-lg p-0 overflow-hidden rounded-2xl">
+            <!-- Header -->
+            <div class="bg-green-900 p-6 text-white relative">
+                <button onclick="document.getElementById('write_modal').close()" class="absolute top-4 right-4 text-white/60 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <h3 class="font-bold text-2xl font-serif mb-1">Share Your Story</h3>
+                <p class="text-green-200 text-sm">Create a blog post or leave a review</p>
+            </div>
+            
+            <div class="p-6">
+                <!-- Toggle -->
+                <div class="flex gap-4 mb-6">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="post_type" class="radio radio-success radio-sm" value="blog" checked>
+                        <span class="text-sm font-bold">Write a Blog</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="post_type" class="radio radio-success radio-sm" value="review">
+                        <span class="text-sm font-bold">Leave a Review</span>
+                    </label>
+                </div>
+
+                <form class="flex flex-col gap-4" id="submission-form">
+                    <!-- Fields for BLOG ONLY -->
+                    <div id="field-title">
+                        <label class="label text-xs font-bold text-gray-500 uppercase">Blog Title</label>
+                        <input type="text" id="post-title" placeholder="e.g., My Journey to Sundarbans" class="input input-bordered w-full bg-gray-50 border-gray-300 focus:border-green-500 focus:outline-none" />
+                    </div>
+
+                    <div id="field-image">
+                        <label class="label text-xs font-bold text-gray-500 uppercase">Image URL (Optional)</label>
+                        <input type="text" id="post-image" placeholder="https://..." class="input input-bordered w-full bg-gray-50 border-gray-300 focus:border-green-500 focus:outline-none" />
+                    </div>
+
+                    <!-- Fields for BOTH -->
+                    <div>
+                        <label class="label text-xs font-bold text-gray-500 uppercase">Your Name</label>
+                        <input type="text" id="post-name" placeholder="John Doe" class="input input-bordered w-full bg-gray-50 border-gray-300 focus:border-green-500 focus:outline-none" />
+                    </div>
+                    
+                    <div>
+                        <label class="label text-xs font-bold text-gray-500 uppercase">Location/Category</label>
+                        <select id="post-category" class="select select-bordered w-full bg-gray-50 border-gray-300 focus:border-green-500 focus:outline-none">
+                            <option disabled selected>Select option</option>
+                            <option>Sundarbans</option>
+                            <option>Sylhet</option>
+                            <option>Dhaka</option>
+                            <option>Chittagong</option>
+                            <option>General</option>
+                        </select>
+                    </div>
+
+                     <!-- Field for REVIEW ONLY -->
+                     <div id="field-rating" class="hidden">
+                        <label class="label text-xs font-bold text-gray-500 uppercase">Rating</label>
+                        <div class="rating rating-sm">
+                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" value="1" />
+                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" value="2" />
+                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" value="3" />
+                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" value="4" />
+                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" value="5" checked />
+                          </div>
+                    </div>
+
+                    <div>
+                        <label class="label text-xs font-bold text-gray-500 uppercase">Content / Comment</label>
+                        <textarea id="post-content" class="textarea textarea-bordered w-full bg-gray-50 border-gray-300 focus:border-green-500 focus:outline-none h-32" placeholder="Tell us about your experience..."></textarea>
+                    </div>
+                </form>
+
+                <div class="modal-action mt-6">
+                    <button type="button" onclick="document.getElementById('write_modal').close()" class="btn btn-ghost flex-1 text-gray-500 hover:bg-gray-100">Cancel</button>
+                    <button type="button" onclick="submitPost()" class="btn bg-green-600 hover:bg-green-700 text-white border-none flex-1">Publish</button>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled-nav');
+            } else {
+                nav.classList.remove('scrolled-nav');
+            }
+        });
+
+        // Tab Switching
+        function switchTab(tabName) {
+            const blogsSection = document.getElementById('section-blogs');
+            const reviewsSection = document.getElementById('section-reviews');
+            const tabBlogs = document.getElementById('tab-blogs');
+            const tabReviews = document.getElementById('tab-reviews');
+
+            if (tabName === 'blogs') {
+                blogsSection.classList.remove('hidden');
+                reviewsSection.classList.add('hidden');
+                tabBlogs.classList.add('bg-green-900', 'text-white', 'shadow-md');
+                tabBlogs.classList.remove('text-gray-500', 'hover:bg-gray-100');
+                tabReviews.classList.remove('bg-green-900', 'text-white', 'shadow-md');
+                tabReviews.classList.add('text-gray-500', 'hover:bg-gray-100');
+            } else {
+                blogsSection.classList.add('hidden');
+                reviewsSection.classList.remove('hidden');
+                tabReviews.classList.add('bg-green-900', 'text-white', 'shadow-md');
+                tabReviews.classList.remove('text-gray-500', 'hover:bg-gray-100');
+                tabBlogs.classList.remove('bg-green-900', 'text-white', 'shadow-md');
+                tabBlogs.classList.add('text-gray-500', 'hover:bg-gray-100');
+            }
+        }
+
+        // --- Form Field Toggling ---
+        const radioBtns = document.querySelectorAll('input[name="post_type"]');
+        const fieldTitle = document.getElementById('field-title');
+        const fieldImage = document.getElementById('field-image');
+        const fieldRating = document.getElementById('field-rating');
+
+        radioBtns.forEach(btn => {
+            btn.addEventListener('change', (e) => {
+                if(e.target.value === 'review') {
+                    fieldTitle.classList.add('hidden');
+                    fieldImage.classList.add('hidden');
+                    fieldRating.classList.remove('hidden');
+                } else {
+                    fieldTitle.classList.remove('hidden');
+                    fieldImage.classList.remove('hidden');
+                    fieldRating.classList.add('hidden');
+                }
+            });
+        });
+
+        // --- Fetch Data on Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchReviews();
+            fetchBlogs();
+        });
+
+        // --- Fetch Blogs ---
+        function fetchBlogs() {
+            fetch('api_blogs.php')
+                .then(res => res.json())
+                .then(blogs => {
+                    const container = document.getElementById('blog-grid');
+                    if(blogs.error) {
+                         console.error(blogs.error);
+                         return;
+                    }
+
+                    if(blogs.length > 0) {
+                        container.innerHTML = '';
+                        blogs.forEach(blog => {
+                            const html = `
+                            <article class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full">
+                                <div class="relative h-60 overflow-hidden shrink-0">
+                                    <img src="${blog.image_url || 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800'}" 
+                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+                                    <span class="absolute bottom-4 left-4 text-white font-serif text-xl font-bold">${blog.category}</span>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <div class="flex gap-2 mb-3 text-xs text-gray-400">
+                                        <span>${blog.publish_date}</span> &bull; <span>${blog.author_name}</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors line-clamp-2">${blog.title}</h3>
+                                    <p class="text-gray-500 text-sm mb-4 line-clamp-3 flex-1">${blog.content}</p>
+                                    <a href="#" class="text-green-700 font-bold text-sm hover:underline mt-auto">Read Full Story</a>
+                                </div>
+                            </article>
+                            `;
+                            container.insertAdjacentHTML('beforeend', html);
+                        });
+                    } else {
+                        container.innerHTML = '<p class="col-span-full text-center text-gray-400">No stories yet. Be the first to write one!</p>';
+                    }
+                })
+                .catch(err => console.error("Error fetching blogs:", err));
+        }
+
+        // --- Fetch Reviews ---
+        function fetchReviews() {
+            fetch('api_reviews.php')
+                .then(res => res.json())
+                .then(reviews => {
+                    const container = document.getElementById('reviews-container');
+                    if(reviews.length > 0) {
+                        container.innerHTML = ''; 
+                        reviews.forEach(review => {
+                            let starsHtml = '';
+                            for(let i=1; i<=5; i++) {
+                                starsHtml += (i <= review.rating) ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+                            }
+
+                            const html = `
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="flex flex-col md:flex-row gap-6">
+                                    <div class="shrink-0 flex md:flex-col items-center gap-3 md:w-32">
+                                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700 text-xl">
+                                            ${review.user_name.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div class="text-center md:text-center text-left">
+                                            <p class="font-bold text-sm text-gray-900">${review.user_name}</p>
+                                            <p class="text-xs text-gray-500">${review.user_location || 'Verified Traveler'}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 border-l-0 md:border-l border-gray-100 md:pl-6">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <span class="text-xs text-gray-400">${review.review_date}</span>
+                                        </div>
+                                        <div class="flex text-yellow-400 text-xs mb-3">${starsHtml}</div>
+                                        <p class="text-gray-600 text-sm leading-relaxed">"${review.comment}"</p>
+                                    </div>
+                                </div>
+                            </div>`;
+                            container.insertAdjacentHTML('beforeend', html);
+                        });
+                    }
+                })
+                .catch(err => console.error("Error loading reviews:", err));
+        }
+
+        // --- Submit Logic (Handles both Blog & Review) ---
+        function submitPost() {
+            const type = document.querySelector('input[name="post_type"]:checked').value;
+            const name = document.getElementById('post-name').value;
+            const content = document.getElementById('post-content').value;
+            const category = document.getElementById('post-category').value;
+            
+            if(!name || !content) {
+                alert("Please fill in Name and Content.");
+                return;
+            }
+
+            if(type === 'review') {
+                // REVIEW SUBMISSION
+                const rating = document.querySelector('input[name="rating-2"]:checked')?.value || 5;
+                
+                fetch('api_reviews.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, comment: content, rating, location: category })
+                })
+                .then(res => res.json())
+                .then(resp => {
+                    if(resp.success) {
+                        alert("Review submitted!");
+                        document.getElementById('write_modal').close();
+                        fetchReviews();
+                    } else alert("Error: " + resp.message);
+                });
+
+            } else {
+                // BLOG SUBMISSION
+                const title = document.getElementById('post-title').value;
+                const image = document.getElementById('post-image').value;
+
+                if(!title) {
+                    alert("Please provide a Title for your blog.");
+                    return;
+                }
+
+                fetch('api_blogs.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        title, 
+                        author_name: name, 
+                        content, 
+                        category: category,
+                        image_url: image
+                    })
+                })
+                .then(res => res.json())
+                .then(resp => {
+                    if(resp.success) {
+                        alert("Blog published!");
+                        document.getElementById('write_modal').close();
+                        fetchBlogs();
+                    } else alert("Error: " + resp.message);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
